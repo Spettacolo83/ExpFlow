@@ -58,3 +58,15 @@ export interface Merchant {
 
 /** Payload per creare una spesa (campi generati dal DB esclusi). */
 export type NewExpense = Omit<Expense, 'id' | 'createdAt' | 'updatedAt'>;
+
+/** Result of parsing raw OCR text from a receipt. */
+export interface ParsedReceipt {
+  /** Detected total, or null if none could be read. */
+  amount: number | null;
+  /** Transaction date as ISO `YYYY-MM-DD`; defaults to today when not found. */
+  date: string;
+  /** Detected merchant name, or null. */
+  merchant: string | null;
+  /** 0–1 heuristic confidence per field. */
+  confidence: { amount: number; date: number; merchant: number };
+}
