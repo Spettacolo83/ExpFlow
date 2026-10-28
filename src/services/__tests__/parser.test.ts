@@ -58,3 +58,37 @@ describe('parseReceipt — fallbacks', () => {
     expect(parseReceipt(text, 'it', FIXED_TODAY).amount).toBe(2.4);
   });
 });
+
+describe('parseReceipt — robustness', () => {
+  it('prefers TOTALE over a preceding SUBTOTALE', () => {
+    const text = ['SUPERMERCATO', 'SUBTOTALE 8,50', 'IVA 0,85', 'TOTALE 9,35'].join('\n');
+    expect(parseReceipt(text, 'it', FIXED_TODAY).amount).toBe(9.35);
+  });
+
+  it('reads a dot-decimal amount correctly on an Italian receipt', () => {
+    expect(parseReceipt(['BAR', 'TOTALE 1.00'].join('\n'), 'it', FIXED_TODAY).amount).toBe(1);
+  });
+
+  it('handles thousands separators in both conventions', () => {
+    expect(parseReceipt('TOTALE 1.234,56', 'it', FIXED_TODAY).amount).toBe(1234.56);
+    expect(parseReceipt('TOTAL 1,234.56', 'en', FIXED_TODAY).amount).toBe(1234.56);
+  });
+
+  it('falls back to today for an out-of-range ISO date', () => {
+    expect(parseReceipt('TOTALE 5,00 2026-13-99', 'it', FIXED_TODAY).date).toBe('2026-10-28');
+  });
+
+  it('falls back to today for an overflowing day (31/04)', () => {
+    expect(parseReceipt('TOTALE 5,00 31/04/2026', 'it', FIXED_TODAY).date).toBe('2026-10-28');
+  });
+
+  it('ignores phone-number lines in the amount fallback', () => {
+    const text = ['BAR CENTRALE', 'TEL 06.1234.5678', 'CAFFE 1,10', '1,10'].join('\n');
+    expect(parseReceipt(text, 'it', FIXED_TODAY).amount).toBe(1.1);
+  });
+
+  it('reads a Spanish receipt date day-first', () => {
+    const text = ['MERCADONA', 'TOTAL 12,00', '05/02/2026'].join('\n');
+    expect(parseReceipt(text, 'es', FIXED_TODAY).date).toBe('2026-02-05');
+  });
+});
