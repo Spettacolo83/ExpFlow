@@ -61,6 +61,10 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkNavTheme : LightNavTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="expense-form"
+          options={{ presentation: 'modal', headerShown: true, title: '' }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
