@@ -86,7 +86,7 @@ ParsedReceipt  (services/parser.ts)
 1. `scan.tsx` → `Camera.takePictureAsync()` → local file URI.
 2. `ocr.recognizeText(uri)` → raw text (on-device, offline-capable).
 3. `parser.parseReceipt(text, locale)` → `ParsedReceipt`.
-4. `router.push('/expense-form', { amount, date, merchant, photoUri, rawOcrText })`.
+4. `router.replace('/expense-form', { amount, date, merchant, photoUri, rawOcrText })` — `replace`, not `push`, so Back from the form returns to the tabs rather than the camera.
 5. User edits → **Save**.
 6. If "Keep photo" is on, move the cached photo into `FileSystem.documentDirectory` and store its URI; otherwise drop it (`photoUri = null`).
 7. `database.insertExpense(...)` (+ `upsertMerchant`) → navigate back.
