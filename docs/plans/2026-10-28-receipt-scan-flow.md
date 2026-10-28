@@ -1073,7 +1073,7 @@ export function CategoryPicker({
             <View style={[styles.dot, { backgroundColor: category.color }]}>
               <Ionicons name={category.icon as IoniconName} size={14} color="#FFFFFF" />
             </View>
-            <ThemedText style={Typography.caption}>{t(`categories.${category.name}`)}</ThemedText>
+            <ThemedText style={Typography.caption}>{t(`categories.${category.id}`)}</ThemedText>
           </Pressable>
         );
       })}
