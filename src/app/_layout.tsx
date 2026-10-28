@@ -65,6 +65,7 @@ export default function RootLayout() {
           name="expense-form"
           options={{ presentation: 'modal', headerShown: true, title: '' }}
         />
+        <Stack.Screen name="scan" options={{ presentation: 'fullScreenModal', headerShown: false }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
