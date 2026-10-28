@@ -1,0 +1,8 @@
+{
+  "common": { "appName": "ExpFlow", "save": "Guardar", "cancel": "Cancelar", "today": "Hoy" },
+  "home": { "addExpense": "Añadir gasto" },
+  "scan": { "title": "Escanear recibo", "instruction": "Encuadra el recibo dentro del marco", "capture": "Capturar", "analyzing": "Analizando recibo…", "manualEntry": "Entrada manual", "chooseScan": "Escanear recibo", "chooseManual": "Introducir a mano" },
+  "permissions": { "cameraTitle": "Se necesita acceso a la cámara", "cameraMessage": "ExpFlow usa la cámara para escanear tus recibos. Nada sale de tu dispositivo.", "grant": "Permitir cámara", "openSettings": "Abrir ajustes" },
+  "form": { "titleNew": "Nuevo gasto", "titleEdit": "Editar gasto", "amount": "Importe", "date": "Fecha", "merchant": "Comercio", "category": "Categoría", "notes": "Notas", "keepPhoto": "Guardar foto del recibo", "amountRequired": "Introduce un importe", "amountInvalid": "Introduce un importe válido", "ocrFailed": "No se pudo leer el recibo. Rellena los datos a mano." },
+  "categories": { "food": "Alimentación", "transport": "Transporte", "housing": "Hogar", "health": "Salud", "entertainment": "Ocio", "work": "Trabajo", "other": "Otro" }
+}
