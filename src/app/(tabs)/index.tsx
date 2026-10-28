@@ -34,7 +34,7 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ThemedText style={Typography.display}>{t('common.appName')}</ThemedText>
         <ThemedText style={Typography.body} themeColor="textSecondary">
-          Dashboard — month totals, breakdown and recent expenses (coming soon).
+          {t('home.dashboardComingSoon')}
         </ThemedText>
         <View style={styles.spacer} />
       </SafeAreaView>

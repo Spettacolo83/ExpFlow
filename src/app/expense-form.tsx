@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, StyleSheet, Switch, View } from 'react-native';
@@ -39,8 +39,10 @@ export default function ExpenseFormScreen() {
   const [error, setError] = useState<string | undefined>();
   const [saving, setSaving] = useState(false);
 
-  // Came from the scanner but nothing usable was read → non-blocking hint.
-  const showOcrNotice = params.rawOcrText === '' && !params.amount;
+  // Came from the scanner (rawOcrText is always passed, even '') but no amount
+  // could be pre-filled — whether OCR returned nothing or unreadable text.
+  // Manual entry passes no params, so rawOcrText is undefined and this stays off.
+  const showOcrNotice = params.rawOcrText !== undefined && !params.amount;
 
   async function handleSave() {
     if (!amount.trim()) {
@@ -85,6 +87,7 @@ export default function ExpenseFormScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <Stack.Screen options={{ title: t('form.titleNew') }} />
       <SafeAreaView style={styles.safe} edges={['bottom']}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <ThemedText style={Typography.heading}>{t('form.titleNew')}</ThemedText>

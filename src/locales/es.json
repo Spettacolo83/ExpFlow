@@ -6,7 +6,8 @@
     "today": "Hoy"
   },
   "home": {
-    "addExpense": "Añadir gasto"
+    "addExpense": "Añadir gasto",
+    "dashboardComingSoon": "Panel — totales del mes, desglose y gastos recientes (próximamente)."
   },
   "scan": {
     "title": "Escanear recibo",

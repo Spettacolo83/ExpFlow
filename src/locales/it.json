@@ -6,7 +6,8 @@
     "today": "Oggi"
   },
   "home": {
-    "addExpense": "Aggiungi spesa"
+    "addExpense": "Aggiungi spesa",
+    "dashboardComingSoon": "Dashboard — totali del mese, suddivisione e spese recenti (in arrivo)."
   },
   "scan": {
     "title": "Scansiona scontrino",

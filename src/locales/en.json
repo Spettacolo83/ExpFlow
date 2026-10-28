@@ -6,7 +6,8 @@
     "today": "Today"
   },
   "home": {
-    "addExpense": "Add expense"
+    "addExpense": "Add expense",
+    "dashboardComingSoon": "Dashboard — month totals, breakdown and recent expenses (coming soon)."
   },
   "scan": {
     "title": "Scan receipt",
