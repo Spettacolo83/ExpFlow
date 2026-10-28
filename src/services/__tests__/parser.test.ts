@@ -1,4 +1,4 @@
-import { parseReceipt, toIsoDate } from '@/services/parser';
+import { isValidIsoDate, parseReceipt, toIsoDate } from '@/services/parser';
 
 const FIXED_TODAY = new Date(2026, 9, 28); // 2026-10-28 (month is 0-based)
 
@@ -90,5 +90,17 @@ describe('parseReceipt — robustness', () => {
   it('reads a Spanish receipt date day-first', () => {
     const text = ['MERCADONA', 'TOTAL 12,00', '05/02/2026'].join('\n');
     expect(parseReceipt(text, 'es', FIXED_TODAY).date).toBe('2026-02-05');
+  });
+});
+
+describe('isValidIsoDate', () => {
+  it('accepts a real date', () => {
+    expect(isValidIsoDate('2026-03-09')).toBe(true);
+  });
+  it('rejects malformed and impossible dates', () => {
+    expect(isValidIsoDate('2026-13-01')).toBe(false);
+    expect(isValidIsoDate('2026-02-30')).toBe(false);
+    expect(isValidIsoDate('hello')).toBe(false);
+    expect(isValidIsoDate('2026-3-9')).toBe(false);
   });
 });

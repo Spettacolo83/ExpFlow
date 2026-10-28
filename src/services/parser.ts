@@ -73,6 +73,13 @@ function buildValidDate(year: number, month: number, day: number): string | null
   return toIsoDate(dt);
 }
 
+/** True only if `s` is a real calendar date in strict `YYYY-MM-DD` form. */
+export function isValidIsoDate(s: string): boolean {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) return false;
+  return buildValidDate(parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3], 10)) === s;
+}
+
 function extractDate(
   lines: string[],
   locale: Language,

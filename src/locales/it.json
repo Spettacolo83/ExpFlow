@@ -34,7 +34,9 @@
     "keepPhoto": "Mantieni foto scontrino",
     "amountRequired": "Inserisci un importo",
     "amountInvalid": "Inserisci un importo valido",
-    "ocrFailed": "Impossibile leggere lo scontrino. Inserisci i dati a mano."
+    "ocrFailed": "Impossibile leggere lo scontrino. Inserisci i dati a mano.",
+    "saveFailed": "Impossibile salvare. Riprova.",
+    "dateInvalid": "Inserisci una data valida (AAAA-MM-GG)"
   },
   "categories": {
     "food": "Spesa alimentare",

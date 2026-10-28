@@ -34,7 +34,9 @@
     "keepPhoto": "Keep receipt photo",
     "amountRequired": "Enter an amount",
     "amountInvalid": "Enter a valid amount",
-    "ocrFailed": "Could not read the receipt. Fill in the details manually."
+    "ocrFailed": "Could not read the receipt. Fill in the details manually.",
+    "saveFailed": "Could not save. Please try again.",
+    "dateInvalid": "Enter a valid date (YYYY-MM-DD)"
   },
   "categories": {
     "food": "Food & Groceries",

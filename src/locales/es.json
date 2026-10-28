@@ -34,7 +34,9 @@
     "keepPhoto": "Guardar foto del recibo",
     "amountRequired": "Introduce un importe",
     "amountInvalid": "Introduce un importe válido",
-    "ocrFailed": "No se pudo leer el recibo. Rellena los datos a mano."
+    "ocrFailed": "No se pudo leer el recibo. Rellena los datos a mano.",
+    "saveFailed": "No se pudo guardar. Inténtalo de nuevo.",
+    "dateInvalid": "Introduce una fecha válida (AAAA-MM-DD)"
   },
   "categories": {
     "food": "Alimentación",

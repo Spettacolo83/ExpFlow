@@ -13,6 +13,8 @@ import { UNCATEGORIZED_ID } from '@/constants/categories';
 import { Spacing, Typography } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { insertExpense } from '@/services/database';
+import { parseUserAmount } from '@/services/money';
+import { isValidIsoDate, toIsoDate } from '@/services/parser';
 import { persistReceiptPhoto } from '@/services/photos';
 import { CurrencyCode } from '@/types';
 
@@ -27,7 +29,7 @@ export default function ExpenseFormScreen() {
     rawOcrText?: string;
   }>();
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = toIsoDate(new Date());
   const [amount, setAmount] = useState(params.amount ?? '');
   const [date, setDate] = useState(params.date ?? today);
   const [merchant, setMerchant] = useState(params.merchant ?? '');
@@ -38,17 +40,20 @@ export default function ExpenseFormScreen() {
   const [saving, setSaving] = useState(false);
 
   // Came from the scanner but nothing usable was read → non-blocking hint.
-  const showOcrNotice = params.rawOcrText !== undefined && !params.amount;
+  const showOcrNotice = params.rawOcrText === '' && !params.amount;
 
   async function handleSave() {
-    const normalized = amount.replace(',', '.').trim();
-    const value = parseFloat(normalized);
-    if (!normalized) {
+    if (!amount.trim()) {
       setError(t('form.amountRequired'));
       return;
     }
-    if (!Number.isFinite(value) || value <= 0) {
+    const value = parseUserAmount(amount);
+    if (value === null) {
       setError(t('form.amountInvalid'));
+      return;
+    }
+    if (!isValidIsoDate(date)) {
+      setError(t('form.dateInvalid'));
       return;
     }
     setError(undefined);
@@ -61,6 +66,7 @@ export default function ExpenseFormScreen() {
       await insertExpense({
         date,
         amount: value,
+        // TODO(settings-slice): use the user's preferred currency
         currency: 'EUR' as CurrencyCode,
         merchant: merchant.trim() || null,
         category,
@@ -69,6 +75,9 @@ export default function ExpenseFormScreen() {
         rawOcrText: params.rawOcrText || null,
       });
       router.back();
+    } catch (e) {
+      console.error('[ExpFlow] insertExpense failed', e);
+      setError(t('form.saveFailed'));
     } finally {
       setSaving(false);
     }
