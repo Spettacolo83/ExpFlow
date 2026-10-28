@@ -33,7 +33,15 @@
           "imageWidth": 76
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-localization",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow ExpFlow to access your camera to scan receipts.",
+          "recordAudioAndroid": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
