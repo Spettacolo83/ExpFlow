@@ -27,6 +27,9 @@ if (!i18n.isInitialized) {
     lng: resolveDeviceLanguage(),
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
+    // Resources are bundled inline, so init runs synchronously; make that
+    // explicit and avoid a dangling init() promise.
+    initAsync: false,
   });
 }
 

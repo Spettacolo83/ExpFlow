@@ -1,8 +1,48 @@
 {
-  "common": { "appName": "ExpFlow", "save": "Save", "cancel": "Cancel", "today": "Today" },
-  "home": { "addExpense": "Add expense" },
-  "scan": { "title": "Scan receipt", "instruction": "Fit the receipt inside the frame", "capture": "Capture", "analyzing": "Analyzing receipt…", "manualEntry": "Manual entry", "chooseScan": "Scan receipt", "chooseManual": "Enter manually" },
-  "permissions": { "cameraTitle": "Camera access needed", "cameraMessage": "ExpFlow uses the camera to scan your receipts. Nothing leaves your device.", "grant": "Allow camera", "openSettings": "Open settings" },
-  "form": { "titleNew": "New expense", "titleEdit": "Edit expense", "amount": "Amount", "date": "Date", "merchant": "Merchant", "category": "Category", "notes": "Notes", "keepPhoto": "Keep receipt photo", "amountRequired": "Enter an amount", "amountInvalid": "Enter a valid amount", "ocrFailed": "Could not read the receipt. Fill in the details manually." },
-  "categories": { "food": "Food & Groceries", "transport": "Transportation", "housing": "Housing", "health": "Health", "entertainment": "Entertainment", "work": "Work", "other": "Other" }
+  "common": {
+    "appName": "ExpFlow",
+    "save": "Save",
+    "cancel": "Cancel",
+    "today": "Today"
+  },
+  "home": {
+    "addExpense": "Add expense"
+  },
+  "scan": {
+    "title": "Scan receipt",
+    "instruction": "Fit the receipt inside the frame",
+    "capture": "Capture",
+    "analyzing": "Analyzing receipt…",
+    "manualEntry": "Manual entry",
+    "chooseScan": "Scan receipt",
+    "chooseManual": "Enter manually"
+  },
+  "permissions": {
+    "cameraTitle": "Camera access needed",
+    "cameraMessage": "ExpFlow uses the camera to scan your receipts. Nothing leaves your device.",
+    "grant": "Allow camera",
+    "openSettings": "Open settings"
+  },
+  "form": {
+    "titleNew": "New expense",
+    "titleEdit": "Edit expense",
+    "amount": "Amount",
+    "date": "Date",
+    "merchant": "Merchant",
+    "category": "Category",
+    "notes": "Notes",
+    "keepPhoto": "Keep receipt photo",
+    "amountRequired": "Enter an amount",
+    "amountInvalid": "Enter a valid amount",
+    "ocrFailed": "Could not read the receipt. Fill in the details manually."
+  },
+  "categories": {
+    "food": "Food & Groceries",
+    "transport": "Transportation",
+    "housing": "Housing",
+    "health": "Health",
+    "entertainment": "Entertainment",
+    "work": "Work",
+    "other": "Other"
+  }
 }
