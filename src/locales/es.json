@@ -15,7 +15,9 @@
     "analyzing": "Analizando recibo…",
     "manualEntry": "Entrada manual",
     "chooseScan": "Escanear recibo",
-    "chooseManual": "Introducir a mano"
+    "chooseManual": "Introducir a mano",
+    "captureError": "Error de captura",
+    "captureErrorMessage": "Algo salió mal al tomar la foto. Inténtalo de nuevo."
   },
   "permissions": {
     "cameraTitle": "Se necesita acceso a la cámara",

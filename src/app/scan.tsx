@@ -1,8 +1,8 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OverlayGuide } from '@/components/Scan/OverlayGuide';
@@ -10,7 +10,7 @@ import { Button } from '@/components/Common/Button';
 import { Radius, Spacing, Typography } from '@/constants/theme';
 import { recognizeText } from '@/services/ocr';
 import { parseReceipt } from '@/services/parser';
-import i18n from '@/i18n';
+import i18n, { SUPPORTED_LANGUAGES } from '@/i18n';
 import { Language } from '@/types';
 
 export default function ScanScreen() {
@@ -18,16 +18,27 @@ export default function ScanScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const [busy, setBusy] = useState(false);
+  const mountedRef = useRef(true);
+  useEffect(() => () => {
+    mountedRef.current = false;
+  }, []);
+
+  function resolveLocale(): Language {
+    const raw = i18n.language;
+    return (SUPPORTED_LANGUAGES as readonly string[]).includes(raw) ? (raw as Language) : 'en';
+  }
 
   async function handleCapture() {
     if (!cameraRef.current || busy) return;
     setBusy(true);
     try {
       const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
-      if (!photo?.uri) return;
+      if (!photo?.uri) {
+        setBusy(false);
+        return;
+      }
       const text = await recognizeText(photo.uri);
-      const locale = (i18n.language as Language) ?? 'en';
-      const parsed = parseReceipt(text, locale);
+      const parsed = parseReceipt(text, resolveLocale());
       router.replace({
         pathname: '/expense-form',
         params: {
@@ -38,8 +49,11 @@ export default function ScanScreen() {
           rawOcrText: text,
         },
       });
-    } finally {
-      setBusy(false);
+      // Do not reset busy here — the screen unmounts after replace.
+    } catch (err) {
+      console.warn('[ExpFlow] capture failed', err);
+      Alert.alert(t('scan.captureError'), t('scan.captureErrorMessage'));
+      if (mountedRef.current) setBusy(false);
     }
   }
 

@@ -15,7 +15,9 @@
     "analyzing": "Analisi scontrino…",
     "manualEntry": "Inserimento manuale",
     "chooseScan": "Scansiona scontrino",
-    "chooseManual": "Inserisci a mano"
+    "chooseManual": "Inserisci a mano",
+    "captureError": "Scatto non riuscito",
+    "captureErrorMessage": "Qualcosa è andato storto durante lo scatto. Riprova."
   },
   "permissions": {
     "cameraTitle": "Serve l'accesso alla camera",

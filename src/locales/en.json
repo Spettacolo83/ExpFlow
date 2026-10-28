@@ -15,7 +15,9 @@
     "analyzing": "Analyzing receipt…",
     "manualEntry": "Manual entry",
     "chooseScan": "Scan receipt",
-    "chooseManual": "Enter manually"
+    "chooseManual": "Enter manually",
+    "captureError": "Capture failed",
+    "captureErrorMessage": "Something went wrong taking the photo. Please try again."
   },
   "permissions": {
     "cameraTitle": "Camera access needed",
