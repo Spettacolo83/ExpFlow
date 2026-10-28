@@ -13,6 +13,8 @@ import { DEFAULT_CATEGORIES } from '@/constants/categories';
 import { Category, CurrencyCode, Expense, NewExpense } from '@/types';
 import { generateId } from '@/services/id';
 
+const VALID_CURRENCIES: ReadonlySet<string> = new Set(['EUR', 'USD', 'GBP']);
+
 const DB_NAME = 'expflow.db';
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -123,7 +125,8 @@ export function mapRowToExpense(row: ExpenseRow): Expense {
     id: row.id,
     date: row.date,
     amount: row.amount,
-    currency: row.currency as CurrencyCode,
+    // Guard against malformed/legacy rows: an unknown currency falls back to EUR.
+    currency: VALID_CURRENCIES.has(row.currency) ? (row.currency as CurrencyCode) : 'EUR',
     merchant: row.merchant,
     category: row.category,
     notes: row.notes,
@@ -165,6 +168,8 @@ export async function insertExpense(input: NewExpense): Promise<Expense> {
 export async function upsertMerchant(name: string, category?: string): Promise<void> {
   const db = await getDatabase();
   const now = Date.now();
+  // The generated id is only consumed on the first insert; on re-sightings the
+  // ON CONFLICT(name) DO UPDATE path keeps the existing row and discards this id.
   await db.runAsync(
     `INSERT INTO merchants (id, name, default_category, times_seen, last_seen)
        VALUES (?, ?, ?, 1, ?)
@@ -197,7 +202,7 @@ export async function getCategories(): Promise<Category[]> {
     color: string;
     icon: string;
     is_custom: number;
-  }>('SELECT * FROM categories;');
+  }>('SELECT * FROM categories ORDER BY is_custom ASC, name ASC;');
   return rows.map((r) => ({
     id: r.id,
     name: r.name,

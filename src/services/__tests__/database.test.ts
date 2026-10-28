@@ -29,4 +29,26 @@ describe('mapRowToExpense', () => {
       updatedAt: 2000,
     });
   });
+
+  it('falls back to EUR for an unrecognized currency and preserves null fields', () => {
+    const row = {
+      id: 'x',
+      date: '2026-01-01',
+      amount: 1,
+      currency: 'XYZ',
+      merchant: null,
+      category: 'other',
+      notes: null,
+      photo_uri: null,
+      raw_ocr_text: null,
+      created_at: 1,
+      updated_at: 2,
+    };
+    const mapped = mapRowToExpense(row);
+    expect(mapped.currency).toBe('EUR');
+    expect(mapped.merchant).toBeNull();
+    expect(mapped.notes).toBeNull();
+    expect(mapped.photoUri).toBeNull();
+    expect(mapped.rawOcrText).toBeNull();
+  });
 });
